@@ -23,4 +23,7 @@ public interface TodoItemsDataBase {
 
   /** delete the @param item */
   void deleteItem(TodoItem item);
+
+  /** get the size of current items list */
+  int getNumberOfCurrentItems();
 }
