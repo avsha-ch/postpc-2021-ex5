@@ -1,5 +1,7 @@
 package exercise.android.reemh.todo_items;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,7 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
   @Override
   public void markItemInProgress(TodoItem item) {
     item.setItemStatus(TodoItem.IN_PROGRESS);
+    item.setItemColor(Color.WHITE);
     Collections.sort(this.todoItemList, new sortTodoList());
   }
 
