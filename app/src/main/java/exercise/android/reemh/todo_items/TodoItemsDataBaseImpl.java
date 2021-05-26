@@ -1,11 +1,16 @@
 package exercise.android.reemh.todo_items;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
 
-  private List<TodoItem> todoItemList;
+  private final List<TodoItem> todoItemList;
+
+  TodoItemsDataBaseImpl(){
+    this.todoItemList = new ArrayList<TodoItem>();
+  }
 
   @Override
   public List<TodoItem> getCurrentItems() { return todoItemList; }
@@ -19,12 +24,14 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
   @Override
   public void markItemDone(TodoItem item) {
     item.setItemStatus(TodoItem.DONE);
+    item.setItemColor(TodoItem.DONE_COLOR);
     Collections.sort(this.todoItemList, new sortTodoList());
   }
 
   @Override
   public void markItemInProgress(TodoItem item) {
     item.setItemStatus(TodoItem.IN_PROGRESS);
+    item.setItemColor(TodoItem.IN_PROGRESS_COLOR);
     Collections.sort(this.todoItemList, new sortTodoList());
   }
 
@@ -35,7 +42,7 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
   }
 
   @Override
-  public int getNumberOfCurrentItems() {
+  public int getSize() {
     return todoItemList.size();
   }
 

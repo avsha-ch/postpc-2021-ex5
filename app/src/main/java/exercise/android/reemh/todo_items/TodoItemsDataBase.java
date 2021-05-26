@@ -1,10 +1,11 @@
 package exercise.android.reemh.todo_items;
 
+import java.io.Serializable;
 import java.util.List;
 
 
 // TODO: feel free to add/change/remove methods as you want
-public interface TodoItemsDataBase {
+public interface TodoItemsDataBase extends Serializable {
 
   /** Get a copy of the current items list */
   List<TodoItem> getCurrentItems();
@@ -25,8 +26,8 @@ public interface TodoItemsDataBase {
   void deleteItem(TodoItem item);
 
   /** get the size of current items list */
-  int getNumberOfCurrentItems();
+  int getSize();
 
   /** returns the TodoItem at the  i'th place of todoItemList*/
-  TodoItem getItemByIndex(int i):
+  TodoItem getItemByIndex(int i);
 }

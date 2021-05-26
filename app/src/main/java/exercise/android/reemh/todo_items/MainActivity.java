@@ -1,10 +1,20 @@
 package exercise.android.reemh.todo_items;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.EditText;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
+
+  private static final String EMPTY_STRING = "";
 
   public TodoItemsDataBase dataBase = null;
 
@@ -14,12 +24,48 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    if (dataBase == null) {
-      dataBase = new TodoItemsDataBaseImpl();
+    EditText editText = findViewById(R.id.editTextInsertTask);
+
+    if (savedInstanceState != null){
+      Serializable tmpDB = savedInstanceState.getSerializable("database");
+      if (tmpDB != null){
+        this.dataBase = (TodoItemsDataBase) tmpDB;
+      }
+      String tmpDescription = savedInstanceState.getString("current_text");
+      if (!tmpDescription.isEmpty()){
+        editText.setText(tmpDescription);
+      }
     }
 
-    // TODO: implement the specs as defined below
-    //    (find all UI components, hook them up, connect everything you need)
+    if (this.dataBase == null) {
+      this.dataBase = new TodoItemsDataBaseImpl();
+    }
+
+    FloatingActionButton buttonCreate = findViewById(R.id.buttonCreateTodoItem);
+    TodoItemsAdapter todoItemsAdapter = new TodoItemsAdapter(this, this.dataBase);
+    RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
+
+    recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+    recyclerView.setAdapter(todoItemsAdapter);
+
+    buttonCreate.setOnClickListener(v -> {
+      String description = editText.getText().toString();
+      if (description.equals(EMPTY_STRING)){
+        return;
+      }
+      this.dataBase.addNewInProgressItem(description);
+      editText.setText(EMPTY_STRING);
+      todoItemsAdapter.notifyDataSetChanged();
+      });
+  }
+
+  @Override
+  protected void onSaveInstanceState(@NonNull Bundle outState){
+    super.onSaveInstanceState(outState);
+    outState.putSerializable("database", this.dataBase);
+    EditText editText = findViewById(R.id.editTextInsertTask);
+    String currentText = editText.getText().toString();
+    outState.putString("current_text", currentText);
   }
 }
 

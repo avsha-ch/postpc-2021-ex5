@@ -6,16 +6,19 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TodoItemHolder extends RecyclerView.ViewHolder {
+public class TodoItemViewHolder extends RecyclerView.ViewHolder {
+    ConstraintLayout itemRowLayout;
     TextView itemDescription;
     TextView itemCreationTime;
     CheckBox itemCheckBox;
     ImageButton itemDeleteButton;
 
-    public TodoItemHolder(@NonNull View itemView) {
+    public TodoItemViewHolder(@NonNull View itemView) {
         super(itemView);
+        this.itemRowLayout = itemView.findViewById(R.id.itemRow);
         this.itemDescription = itemView.findViewById(R.id.itemDescription);
         this.itemCreationTime = itemView.findViewById(R.id.itemCreationTime);
         this.itemCheckBox = itemView.findViewById(R.id.itemCheckBox);

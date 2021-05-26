@@ -6,9 +6,9 @@ public class sortTodoList implements Comparator<TodoItem> {
 
     @Override
     public int compare(TodoItem o1, TodoItem o2) {
-        int status = o1.getItemStatus() - o2.getItemStatus();
+        int status = Boolean.compare(o2.getItemStatus(), o1.getItemStatus());
         if (status == 0) {
-            return (int) (o2.getItemCreationTime() - o1.getItemCreationTime());
+            return Long.compare(o1.getItemCreationTime(),o2.getItemCreationTime());
         }
         return status;
     }
