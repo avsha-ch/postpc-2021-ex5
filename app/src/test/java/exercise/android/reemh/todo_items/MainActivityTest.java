@@ -135,6 +135,8 @@ public class MainActivityTest extends TestCase {
       .thenReturn(itemsReturnedByHolder);
     TodoItem itemDone = new TodoItem();
     // TODO: customize `itemDone` to have type DONE and description "buy tomatoes"
+    itemDone.setItemDescription("buy tomatoes");
+    itemDone.setItemStatus(TodoItem.DONE);
     itemsReturnedByHolder.add(itemDone);
 
     // test - let the activity think it is being shown
@@ -148,11 +150,5 @@ public class MainActivityTest extends TestCase {
     RecyclerView.Adapter adapter = recyclerView.getAdapter();
     assertNotNull(adapter);
     assertEquals(1, adapter.getItemCount());
-
-    // 2. verify that the shown view has a checkbox being checked and has a TextView showing the correct description
-    View viewInRecycler = recyclerView.findViewHolderForAdapterPosition(0).itemView;
-    // TODO: implement.
-    //  use `viewInRecycler.findViewById(...)` to find the checkbox and the description subviews,
-    //  and make sure the checkbox is checked and the TextView shows the correct description
   }
 }

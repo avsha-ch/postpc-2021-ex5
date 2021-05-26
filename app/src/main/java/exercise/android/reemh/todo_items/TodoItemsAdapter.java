@@ -16,8 +16,7 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
     LayoutInflater layoutInflater;
 
 
-    TodoItemsAdapter(Context context, TodoItemsDataBase dataBase){
-        this.context = context;
+    TodoItemsAdapter(TodoItemsDataBase dataBase){
         this.dataBase = dataBase;
     }
 

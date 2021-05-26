@@ -31,7 +31,6 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
   @Override
   public void markItemInProgress(TodoItem item) {
     item.setItemStatus(TodoItem.IN_PROGRESS);
-    item.setItemColor(TodoItem.IN_PROGRESS_COLOR);
     Collections.sort(this.todoItemList, new sortTodoList());
   }
 
@@ -43,7 +42,7 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
 
   @Override
   public int getSize() {
-    return todoItemList.size();
+    return getCurrentItems().size();
   }
 
   @Override

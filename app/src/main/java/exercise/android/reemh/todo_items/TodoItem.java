@@ -9,7 +9,6 @@ import java.util.Locale;
 
 public class TodoItem implements Serializable {
     public static final boolean IN_PROGRESS = false;
-    public static final int IN_PROGRESS_COLOR = Color.blue(100);
     public static final boolean DONE = true;
     public static final int DONE_COLOR = Color.GREEN;
     private static final String DEFAULT_DESCRIPTION = "This TodoItem Has No Description";
@@ -24,7 +23,6 @@ public class TodoItem implements Serializable {
         super();
         this.itemDescription = description;
         this.itemStatus = IN_PROGRESS;
-        this.itemColor = IN_PROGRESS_COLOR;
         this.itemCreationTime.setTimeInMillis(System.currentTimeMillis());
     }
 
@@ -32,7 +30,6 @@ public class TodoItem implements Serializable {
         super();
         this.itemDescription = DEFAULT_DESCRIPTION;
         this.itemStatus = IN_PROGRESS;
-        this.itemColor = IN_PROGRESS_COLOR;
         this.itemCreationTime.setTimeInMillis(System.currentTimeMillis());
     }
 

@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
   private static final String EMPTY_STRING = "";
 
   public TodoItemsDataBase dataBase = null;
+  private TodoItemsAdapter todoItemsAdapter = null;
 
 
   @Override
@@ -40,13 +41,15 @@ public class MainActivity extends AppCompatActivity {
     if (this.dataBase == null) {
       this.dataBase = new TodoItemsDataBaseImpl();
     }
+    if (this.todoItemsAdapter == null){
+      this.todoItemsAdapter = new TodoItemsAdapter(this.dataBase);
+    }
 
     FloatingActionButton buttonCreate = findViewById(R.id.buttonCreateTodoItem);
-    TodoItemsAdapter todoItemsAdapter = new TodoItemsAdapter(this, this.dataBase);
     RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
 
     recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-    recyclerView.setAdapter(todoItemsAdapter);
+    recyclerView.setAdapter(this.todoItemsAdapter);
 
     buttonCreate.setOnClickListener(v -> {
       String description = editText.getText().toString();
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
       }
       this.dataBase.addNewInProgressItem(description);
       editText.setText(EMPTY_STRING);
-      todoItemsAdapter.notifyDataSetChanged();
+      this.todoItemsAdapter.notifyDataSetChanged();
       });
   }
 

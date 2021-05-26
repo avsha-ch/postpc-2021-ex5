@@ -5,8 +5,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 public class TodoItemsDataBaseImplTest extends TestCase {
-  @Test
-  public void when_addingTodoItem_then_callingListShouldHaveThisItem(){
+
+  public void test_when_addingTodoItem_then_callingListShouldHaveThisItem(){
     // setup
     TodoItemsDataBaseImpl dbUnderTest = new TodoItemsDataBaseImpl();
     assertEquals(0, dbUnderTest.getCurrentItems().size());
