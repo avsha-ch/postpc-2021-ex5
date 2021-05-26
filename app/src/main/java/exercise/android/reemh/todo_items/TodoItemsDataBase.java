@@ -26,4 +26,7 @@ public interface TodoItemsDataBase {
 
   /** get the size of current items list */
   int getNumberOfCurrentItems();
+
+  /** returns the TodoItem at the  i'th place of todoItemList*/
+  TodoItem getItemByIndex(int i):
 }

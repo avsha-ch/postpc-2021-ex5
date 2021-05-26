@@ -6,12 +6,12 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class TodoItem implements Serializable {
-    public static final int DONE = 0;
-    public static final int IN_PROGRESS = 1;
+    public static final boolean IN_PROGRESS = false;
+    public static final boolean DONE = true;
     private static final String DEFAULT_DESCRIPTION = "This TodoItem Has No Description";
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
     private String itemDescription;
-    private int itemStatus;
+    private boolean itemStatus;
     private final Calendar itemCreationTime = Calendar.getInstance();
 
 
@@ -37,11 +37,11 @@ public class TodoItem implements Serializable {
         this.itemDescription = itemDescription;
     }
 
-    public int getItemStatus() {
+    public boolean getItemStatus() {
         return itemStatus;
     }
 
-    public void setItemStatus(int itemStatus) {
+    public void setItemStatus(boolean itemStatus) {
         this.itemStatus = itemStatus;
     }
 

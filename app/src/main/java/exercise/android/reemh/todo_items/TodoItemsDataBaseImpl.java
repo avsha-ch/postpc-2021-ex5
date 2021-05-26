@@ -38,4 +38,9 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
   public int getNumberOfCurrentItems() {
     return todoItemList.size();
   }
+
+  @Override
+  public TodoItem getItemByIndex(int i){
+    return this.todoItemList.get(i);
+  }
 }

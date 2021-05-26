@@ -50,3 +50,9 @@ please **LET ME KNOW** and I will drop the request for tests from the exercise s
 ---
 
 ✨ Good luck! ✨
+
+
+
+## CONTINUE TO WORK IN THIS ORDER:
+1. TodoItemsAdapter.java
+2. return to MainActivity.java and look for further instructions

@@ -8,6 +8,7 @@ public class MainActivity extends AppCompatActivity {
 
   public TodoItemsDataBase dataBase = null;
 
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
