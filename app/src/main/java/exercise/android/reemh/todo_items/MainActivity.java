@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.EditText;
 
@@ -12,12 +16,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
   private static final String EMPTY_STRING = "";
 
   public TodoItemsDataBase dataBase = null;
   private TodoItemsAdapter todoItemsAdapter = null;
+  private BroadcastReceiver receiverToDbChanges;
 
 
   @Override
@@ -26,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     EditText editText = findViewById(R.id.editTextInsertTask);
-
     if (savedInstanceState != null){
       Serializable tmpDB = savedInstanceState.getSerializable("database");
       if (tmpDB != null){
@@ -37,13 +41,23 @@ public class MainActivity extends AppCompatActivity {
         editText.setText(tmpDescription);
       }
     }
-
-    if (this.dataBase == null) {
-      this.dataBase = new TodoItemsDataBaseImpl();
+    if (dataBase == null){
+      dataBase = TodoItemsApplication.getInstance().getDB();
     }
     if (this.todoItemsAdapter == null){
       this.todoItemsAdapter = new TodoItemsAdapter(this.dataBase);
     }
+
+    receiverToDbChanges = new BroadcastReceiver() {
+      @Override
+      public void onReceive(Context context, Intent intent){
+        if (intent.getAction().equals("db_changed")) {
+          // TODO: db changed
+        }
+      }
+    };
+
+    registerReceiver(receiverToDbChanges, new IntentFilter("db_changed"));
 
     FloatingActionButton buttonCreate = findViewById(R.id.buttonCreateTodoItem);
     RecyclerView recyclerView = findViewById(R.id.recyclerTodoItemsList);
@@ -70,6 +84,13 @@ public class MainActivity extends AppCompatActivity {
     String currentText = editText.getText().toString();
     outState.putString("current_text", currentText);
   }
+
+  @Override
+  protected void onDestroy() {
+    unregisterReceiver(receiverToDbChanges);
+    super.onDestroy();
+  }
+
 }
 
 /*
