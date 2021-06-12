@@ -53,14 +53,10 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
             this.notifyDataSetChanged();
         });
         holder.itemEditButton.setOnClickListener(v -> {
+
             Intent intent = new Intent(this.context, EditTodoItemActivity.class);
             intent.putExtra("edit_todo_item", itemAtPosition.getItemId());
             this.context.startActivity(intent);
-            // v.getContext().startActivity(intent);
-            // TODO: maybe not the same db as in editActivity, maybe this row is a problem
-            // dataBase = TodoItemsApplication.getInstance().getDB();
-            // holder.itemRowLayout.setBackgroundColor(this.dataBase.getItemByIndex(position).getItemColor());
-            // this.notifyDataSetChanged();
 
         });
     }

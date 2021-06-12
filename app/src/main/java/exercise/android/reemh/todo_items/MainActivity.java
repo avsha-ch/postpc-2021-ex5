@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class  MainActivity extends AppCompatActivity {
@@ -33,19 +31,7 @@ public class  MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     EditText editText = findViewById(R.id.editTextInsertTask);
-    // TODO: maybe delete this part because of DB (line 45)
-    if (savedInstanceState != null){
-      Serializable tmpDB = savedInstanceState.getSerializable("database");
-      if (tmpDB != null){
-        this.dataBase = (TodoItemsDataBaseImpl) tmpDB;
-      }
-      String tmpDescription = savedInstanceState.getString("current_text");
-      if (!tmpDescription.isEmpty()){
-        editText.setText(tmpDescription);
-      }
-    }
     if (dataBase == null){
-      Log.d("DB", "2");
       dataBase = TodoItemsApplication.getInstance().getDB();
     }
     if (this.todoItemsAdapter == null){
@@ -86,7 +72,6 @@ public class  MainActivity extends AppCompatActivity {
   @Override
   protected void onSaveInstanceState(@NonNull Bundle outState){
     super.onSaveInstanceState(outState);
-    outState.putSerializable("database", this.dataBase);
     EditText editText = findViewById(R.id.editTextInsertTask);
     String currentText = editText.getText().toString();
     outState.putString("current_text", currentText);

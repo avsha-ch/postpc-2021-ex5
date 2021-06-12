@@ -83,7 +83,6 @@ public class TodoItemsDataBaseImpl implements TodoItemsDataBase {
     SharedPreferences.Editor editor = sp.edit();
     editor.remove(item.getItemId());
     editor.apply();
-    // TODO: MAYBE? Collections.sort(this.todoItemList, new sortTodoList());
     sendBroadcastDbChanged();
   }
 

@@ -4,8 +4,8 @@ import android.app.Application;
 
 public class TodoItemsApplication extends Application {
 
-    private TodoItemsDataBaseImpl todoItemsDataBase;
     private static TodoItemsApplication instance = null;
+    private TodoItemsDataBaseImpl todoItemsDataBase;
 
 
     public TodoItemsDataBaseImpl getDB() {

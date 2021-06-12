@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,7 +34,6 @@ public class EditTodoItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_todo_item);
 
         if (dataBase == null){
-            Log.d("DB", "1");
             dataBase = TodoItemsApplication.getInstance().getDB();
         }
         Intent intent = getIntent();

@@ -15,9 +15,9 @@ public class TodoItem implements Serializable {
     public static final int DONE_COLOR = Color.GREEN;
     private static final String DEFAULT_DESCRIPTION = "This TodoItem Has No Description";
     private static final long MILLISECONDS_IN_AN_HOUR = 3600000L;
-    private static final String MODIFIED_MINUTES_STR = "%s minutes ago";
-    private static final String MODIFIED_HOUR_STR = "Today at %s";
-    private static final String MODIFIED_TIME_STR = "%s at %s";
+    private static final String MODIFIED_MINUTES_STR = "%d minutes ago";
+    private static final String MODIFIED_HOUR_STR = "Today at %d";
+    private static final String MODIFIED_TIME_STR = "%s at %d";
     private static final SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault());
     private final String itemId;
     private String itemDescription;
@@ -87,17 +87,17 @@ public class TodoItem implements Serializable {
     public String getItemModifiedTimeFormatted() {
         long lastModified = System.currentTimeMillis() - this.itemModifiedTime.getTime().getTime();
         String modifiedTimeString;
-        String modifiedMinute = sdf.format(this.itemModifiedTime.get(Calendar.MINUTE));
-        String modifiedHour = sdf.format(this.itemModifiedTime.get(Calendar.HOUR));
+        long modifiedMinute = lastModified / (60L * 1000L);
+        long modifiedHour = lastModified / (60L * 60L * 1000L);
         String modifiedDate = sdf.format(this.itemModifiedTime.get(Calendar.DATE));
         if (lastModified < MILLISECONDS_IN_AN_HOUR){
-            modifiedTimeString = String.format(MODIFIED_MINUTES_STR, modifiedMinute);
+            modifiedTimeString = String.format(Locale.getDefault(), MODIFIED_MINUTES_STR, modifiedMinute);
         }
         else if (lastModified < MILLISECONDS_IN_AN_HOUR * 24L){
-            modifiedTimeString = String.format(MODIFIED_HOUR_STR,  modifiedHour);
+            modifiedTimeString = String.format(Locale.getDefault(), MODIFIED_HOUR_STR,  modifiedHour);
         }
         else {
-            modifiedTimeString = String.format(MODIFIED_TIME_STR, modifiedDate, modifiedHour);
+            modifiedTimeString = String.format(Locale.getDefault(), MODIFIED_TIME_STR, modifiedDate, modifiedHour);
         }
         return modifiedTimeString;
     }
