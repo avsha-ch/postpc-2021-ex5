@@ -4,11 +4,11 @@ import android.app.Application;
 
 public class TodoItemsApplication extends Application {
 
-    private TodoItemsDataBase todoItemsDataBase;
+    private TodoItemsDataBaseImpl todoItemsDataBase;
     private static TodoItemsApplication instance = null;
 
 
-    public TodoItemsDataBase getDB() {
+    public TodoItemsDataBaseImpl getDB() {
         return todoItemsDataBase;
     }
 
@@ -20,5 +20,6 @@ public class TodoItemsApplication extends Application {
     public void onCreate() {
         super.onCreate();
         todoItemsDataBase = new TodoItemsDataBaseImpl(this);
+        instance = this;
     }
 }

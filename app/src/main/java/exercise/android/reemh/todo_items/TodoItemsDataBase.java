@@ -1,6 +1,7 @@
 package exercise.android.reemh.todo_items;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,6 +10,9 @@ public interface TodoItemsDataBase extends Serializable {
 
   /** Get a copy of the current items list */
   List<TodoItem> getCurrentItems();
+
+  /** Set current items list */
+  public void setCurrentItems(ArrayList<TodoItem> newCurrentItems);
 
   /**
    * Creates a new TodoItem and adds it to the list, with the @param description and status=IN-PROGRESS
@@ -30,4 +34,9 @@ public interface TodoItemsDataBase extends Serializable {
 
   /** returns the TodoItem at the  i'th place of todoItemList*/
   TodoItem getItemByIndex(int i);
+
+  /** returns the TodoItem with id = itemId */
+  TodoItem getItemById(String itemId);
+
+  void setItemDescription(String itemId, String newDescription);
 }

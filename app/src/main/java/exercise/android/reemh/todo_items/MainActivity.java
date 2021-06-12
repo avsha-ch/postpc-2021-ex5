@@ -1,26 +1,28 @@
 package exercise.android.reemh.todo_items;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class  MainActivity extends AppCompatActivity {
 
   private static final String EMPTY_STRING = "";
 
-  public TodoItemsDataBase dataBase = null;
+  public TodoItemsDataBaseImpl dataBase = null;
   private TodoItemsAdapter todoItemsAdapter = null;
   private BroadcastReceiver receiverToDbChanges;
 
@@ -31,10 +33,11 @@ public class  MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     EditText editText = findViewById(R.id.editTextInsertTask);
+    // TODO: maybe delete this part because of DB (line 45)
     if (savedInstanceState != null){
       Serializable tmpDB = savedInstanceState.getSerializable("database");
       if (tmpDB != null){
-        this.dataBase = (TodoItemsDataBase) tmpDB;
+        this.dataBase = (TodoItemsDataBaseImpl) tmpDB;
       }
       String tmpDescription = savedInstanceState.getString("current_text");
       if (!tmpDescription.isEmpty()){
@@ -42,6 +45,7 @@ public class  MainActivity extends AppCompatActivity {
       }
     }
     if (dataBase == null){
+      Log.d("DB", "2");
       dataBase = TodoItemsApplication.getInstance().getDB();
     }
     if (this.todoItemsAdapter == null){
@@ -52,7 +56,10 @@ public class  MainActivity extends AppCompatActivity {
       @Override
       public void onReceive(Context context, Intent intent){
         if (intent.getAction().equals("db_changed")) {
-          // TODO: db changed
+          ArrayList<TodoItem> newCurrentItems = (ArrayList<TodoItem>) intent.getSerializableExtra("new_list");
+          todoItemsAdapter.dataBase.setCurrentItems(newCurrentItems);
+          dataBase.setCurrentItems(newCurrentItems);
+          todoItemsAdapter.notifyDataSetChanged();
         }
       }
     };

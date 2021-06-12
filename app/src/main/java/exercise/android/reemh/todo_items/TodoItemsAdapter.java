@@ -1,7 +1,7 @@
 package exercise.android.reemh.todo_items;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
 
     Context context;
-    TodoItemsDataBase dataBase;
+    TodoItemsDataBaseImpl dataBase;
     LayoutInflater layoutInflater;
 
 
-    TodoItemsAdapter(TodoItemsDataBase dataBase){
+
+    TodoItemsAdapter(TodoItemsDataBaseImpl dataBase){
         this.dataBase = dataBase;
     }
 
@@ -51,11 +52,23 @@ public class TodoItemsAdapter extends RecyclerView.Adapter<TodoItemViewHolder> {
             this.dataBase.deleteItem(itemAtPosition);
             this.notifyDataSetChanged();
         });
+        holder.itemEditButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this.context, EditTodoItemActivity.class);
+            intent.putExtra("edit_todo_item", itemAtPosition.getItemId());
+            this.context.startActivity(intent);
+            // v.getContext().startActivity(intent);
+            // TODO: maybe not the same db as in editActivity, maybe this row is a problem
+            // dataBase = TodoItemsApplication.getInstance().getDB();
+            // holder.itemRowLayout.setBackgroundColor(this.dataBase.getItemByIndex(position).getItemColor());
+            // this.notifyDataSetChanged();
 
+        });
     }
 
     @Override
     public int getItemCount() {
         return this.dataBase.getSize();
     }
+
+
 }

@@ -15,6 +15,7 @@ public class TodoItemViewHolder extends RecyclerView.ViewHolder {
     TextView itemCreationTime;
     CheckBox itemCheckBox;
     ImageButton itemDeleteButton;
+    ImageButton itemEditButton;
 
     public TodoItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,6 +24,7 @@ public class TodoItemViewHolder extends RecyclerView.ViewHolder {
         this.itemCreationTime = itemView.findViewById(R.id.itemCreationTime);
         this.itemCheckBox = itemView.findViewById(R.id.itemCheckBox);
         this.itemDeleteButton = itemView.findViewById(R.id.itemDeleteButton);
+        this.itemEditButton = itemView.findViewById(R.id.itemEditButton);
     }
 
 
